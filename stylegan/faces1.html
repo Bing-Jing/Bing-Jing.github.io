@@ -1,0 +1,54 @@
+<SCRIPT LANGUAGE="JavaScript">
+var theImages = new Array() // do not change this
+
+
+var path = "results/";
+for (var i = 0; i < 1000; i++) { 
+    theImages[i] = path+"example-"+i.toString()+".png";
+//    console.log(path+"example-"+i.toString()+".png")
+ }
+var j = 0;
+var p = 1000;
+var preBuffer = new Array()
+for (i = 0; i < p; i++){
+   preBuffer[i] = new Image()
+   preBuffer[i].src = theImages[i]
+}
+
+function reloadIMG(){
+    var whichImage = Math.round(Math.random()*(p-1));
+    document.getElementById("MainIMG").src=theImages[whichImage];
+//    document.getElementById("MainIMG").src=path+"example-"+whichImage+".png";
+    console.log("reload")
+}
+</script>
+
+<center>
+<h1>Style-based GAN</h1>
+
+
+<BODY>
+    
+<SCRIPT LANGUAGE="JavaScript">
+var whichImage = Math.round(Math.random()*(p-1));
+document.write('<img src="'+path+"example-"+whichImage+".png"+'" id="MainIMG">');
+var Interval = setInterval('reloadIMG();',10000);
+var trigger = true;
+function refreshBtn(){
+    if(trigger){
+        clearInterval(Interval);
+        document.getElementById("RefreshBtn").textContent="resume refresh";
+        trigger = false;
+    }else{
+        Interval = setInterval('reloadIMG();',10000);
+        document.getElementById("RefreshBtn").textContent="stop refresh";
+        trigger = true;
+    }
+    
+}
+</script>
+<div>
+    <button onclick="reloadIMG()">refresh</button>
+    <button onclick="refreshBtn()" id="RefreshBtn" >stop refresh</button>
+</div>
+</center>
